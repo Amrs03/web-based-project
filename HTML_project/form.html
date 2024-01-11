@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="path/to/bootstrap.min.css">
+    <link rel="stylesheet" href="project_style.css">
+    <title>Zakat</title>
+</head>
+<body>
+    <h1>Zakat Calculator</h1>
+    <form>
+        <p>Zakat is a religious obligation for all Muslims who meet the necessary criteria to donate a certain portion of their wealth each year to charitable causes. It is said to purify yearly earnings that are over and above what is required to provide individuals and their families with their essential needs.</p><br>
+        <label for="net-income">Net Income (in dollars):</label><br>
+        <input type="number" id="net-income" name="net-income"><br>
+        <label for="expenses">Total Expenses (in dollars):</label><br>
+        <input type="number" id="expenses" name="expenses"><br>
+        <input type="radio" id="gender_m" name="gender" value="male">Male<br>
+        <input type="radio" id="gender_f" name="gender" value="female">Female<br>
+        <input type="button" value="Calculate Zakat" onclick="calculateZakat()">
+    </form>
+    <p id="result"></p>
+
+    <script>
+        function calculateZakat() {
+            var netIncome = document.getElementById("net-income").value;
+            var expenses = document.getElementById("expenses").value;
+            var gender_m = document.getElementById("gender_m").checked;
+            var gender_f = document.getElementById("gender_f").checked;
+            
+            if (gender_m) {
+                if (isNaN(netIncome) || isNaN(expenses)) {
+                    document.getElementById("result").innerHTML = "Invalid input. Please enter a valid net income and expenses.";
+                    return;
+                }
+                
+                var zakatableIncome = netIncome - expenses;
+                
+                if (zakatableIncome < 2000) {
+                    document.getElementById("result").innerHTML = "The amount of zakat is insufficient, as the minimum amount required is 2,000 dollars.";
+                } else {
+                    var zakatPercentage = 0.025;
+                    var zakat = zakatableIncome * zakatPercentage;
+                    
+                    document.getElementById("result").innerHTML = "The amount of zakat due is $" + zakat.toFixed(2) + ".";
+                }
+            } else if (gender_f) {
+                document.getElementById("result").innerHTML = "Female zakat is not obligatory. If you would like to give zakat, kindly contact us.";
+            } else {
+                document.getElementById("result").innerHTML = "Please select your gender.";
+            }
+        }
+    </script>
+
+    <script src="path/to/bootstrap.bundle.min.js"></script>
+</body>
+</html>
